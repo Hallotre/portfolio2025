@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+/* Custom theme variables */
+@theme {
+  --color-brand-50: #f0f9ff;
+  --color-brand-500: #3b82f6;
+  --color-brand-900: #1e40af;
+  
+  --font-display: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  
+  --breakpoint-3xl: 1680px;
+  
+  --shadow-glow: 0 0 20px rgb(59 130 246 / 0.15);
+}
+
+/* Enhanced base styles */
+@layer base {
+  html {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    font-synthesis: none;
+    @apply bg-black text-white font-sans leading-relaxed;
+  }
+  
+  /* Enhanced focus styles for accessibility */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-blue-400;
+  }
+  
+  /* Improved selection styles */
+  ::selection {
+    @apply bg-blue-500/30 text-white;
+  }
+  
+  /* Modern scrollbar styling */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-950/50;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-700 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-600;
+  }
+  
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Essential component styles without animations */
+@layer components {
+  .container-modern {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent;
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .glass-dark {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold cursor-pointer;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-purple-500 to-blue-500 text-white;
+  }
+
+  .btn-secondary {
+    @apply border border-white/30 text-white;
+  }
+
+  .card {
+    @apply rounded-xl border border-gray-700/50 bg-gray-800/50 p-6 backdrop-blur-sm;
+  }
+
+  .btn:focus-visible {
+    @apply outline-none ring-2 ring-blue-400 ring-offset-2 ring-offset-black;
+  }
+
+  .btn:disabled {
+    @apply pointer-events-none opacity-50;
+  }
+}
