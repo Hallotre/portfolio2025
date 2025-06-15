@@ -1,36 +1,146 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio 2025
 
-## Getting Started
+A modern, responsive personal portfolio website built with Next.js 15, showcasing creative development skills and projects with smooth animations and an elegant design.
 
-First, run the development server:
+## 🚀 Live Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Visit the live portfolio: [Portfolio 2025](https://your-portfolio-url.com)
+
+## ✨ Features
+
+- **Modern Design**: Clean, professional layout with glassmorphism effects
+- **Responsive**: Fully responsive design that works on all devices
+- **Smooth Animations**: Beautiful animations powered by Framer Motion
+- **Fast Performance**: Built with Next.js 15 and optimized for speed
+- **Type Safe**: Full TypeScript implementation
+- **SEO Optimized**: Proper meta tags and semantic HTML structure
+- **Accessible**: Built with accessibility best practices
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **Animations**: Framer Motion
+- **UI**: React 19
+
+### Development Tools
+- **Package Manager**: npm
+- **Linting**: ESLint
+- **Code Formatting**: Built-in Next.js formatting
+- **Development Server**: Turbopack (Next.js 15)
+
+## 🏗️ Project Structure
+
+```
+portfolio2025-1/
+├── app/
+│   ├── globals.css          # Global styles and Tailwind configuration
+│   ├── layout.tsx           # Root layout component
+│   ├── page.tsx            # Main homepage with all sections
+│   └── projects/           # Project-specific pages
+├── lib/
+│   └── projects.ts         # Project data and configurations
+├── public/
+│   ├── portrait.png        # Profile image
+│   ├── holidaze.png        # Project screenshots
+│   ├── ecomstore.png       # Project screenshots
+│   └── [favicons]          # Various favicon files
+├── package.json            # Dependencies and scripts
+├── tailwind.config.js      # Tailwind CSS configuration
+├── tsconfig.json          # TypeScript configuration
+└── next.config.ts         # Next.js configuration
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚦 Getting Started
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prerequisites
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Node.js 18.0 or later
+- npm, yarn, pnpm, or bun
 
-## Learn More
+### Installation
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/hallotre/portfolio2025-1.git
+   cd portfolio2025-1
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+   # or
+   bun install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Run the development server**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm dev
+   # or
+   bun dev
+   ```
 
-## Deploy on Vercel
+4. **Open your browser**
+   
+   Navigate to [http://localhost:3000](http://localhost:3000) to see the portfolio.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📝 Customization
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Adding Your Content
+
+1. **Update Personal Information**
+   - Edit the hero section in `app/page.tsx`
+   - Replace `public/portrait.png` with your own photo
+   - Update the about section with your information
+
+2. **Add Your Projects**
+   - Edit `lib/projects.ts` to add your project data
+   - Add project images to the `public/` directory
+   - Update project links and descriptions
+
+3. **Customize Styling**
+   - Modify global styles in `app/globals.css`
+   - Adjust color schemes and animations as needed
+   - Update the gradient colors to match your brand
+
+4. **Update Metadata**
+   - Edit `app/layout.tsx` for SEO meta tags
+   - Update `site.webmanifest` for PWA configuration
+   - Replace favicon files in the `public/` directory
+
+## 🎨 Sections Included
+
+- **Hero Section**: Eye-catching introduction with animated background
+- **About**: Personal introduction and professional background
+- **Projects**: Showcase of featured work with live demos and source code
+- **Skills**: Technical skills organized by categories
+- **Contact**: Contact information and social links
+
+## 📱 Responsive Design
+
+The portfolio is fully responsive and optimized for:
+- Desktop (1200px+)
+- Tablet (768px - 1199px)
+- Mobile (320px - 767px)
+
+
+## 🛠️ Available Scripts
+
+- `npm run dev` - Start development server with Turbopack
+- `npm run build` - Build the application for production
+- `npm run start` - Start the production server
+- `npm run lint` - Run ESLint to check for code issues
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
