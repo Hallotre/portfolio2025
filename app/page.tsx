@@ -9,6 +9,16 @@ export default function Home() {
   const { scrollYProgress } = useScroll()
   const headerOpacity = useTransform(scrollYProgress, [0, 0.1], [0, 1])
 
+  // Contact and social media links
+  const contactInfo = {
+    email: "tobyhaywood@proton.me",
+    social: {
+      github: "https://github.com/Hallotre",
+      linkedin: "https://linkedin.com/in/tobyhaywood",
+      X: "https://x.com/TobyHallotre"
+    }
+  }
+
   // Animation variants for better performance
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
@@ -52,12 +62,14 @@ export default function Home() {
             transition={{ delay: 0.1 }}
           >
             <div className="flex items-center justify-between">
-              <motion.div 
-                className="text-xl font-bold gradient-text"
-                whileHover={{ scale: 1.05 }}
-              >
-                Portfolio
-              </motion.div>
+              <Link href="/">
+                <motion.div 
+                  className="text-xl font-bold gradient-text cursor-pointer"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  Portfolio
+                </motion.div>
+              </Link>
               <div className="hidden md:flex space-x-8">
                 {['About', 'Projects', 'Skills', 'Contact'].map((item, index) => (
                   <motion.a
@@ -154,8 +166,7 @@ export default function Home() {
                 About <span className="gradient-text">Me</span>
               </h2>
               <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                I&apos;m a passionate developer with expertise in modern web technologies. 
-                I love creating digital experiences that are not only beautiful but also 
+                I like creating digital experiences that are not only beautiful but also 
                 functional and accessible.
               </p>
                               <p className="text-gray-300 text-lg leading-relaxed">
@@ -344,28 +355,21 @@ export default function Home() {
             </p>
             
             <motion.div 
-              className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+              className="flex justify-center mb-12"
               variants={staggerChildren}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
             >
-              <motion.button 
+              <motion.a 
+                href={`mailto:${contactInfo.email}`}
                 className="btn btn-primary"
                 variants={fadeInUp}
                 whileHover={hoverScale}
                 whileTap={{ scale: 0.95 }}
               >
                 Send Message
-              </motion.button>
-              <motion.button 
-                className="btn btn-secondary"
-                variants={fadeInUp}
-                whileHover={hoverScale}
-                whileTap={{ scale: 0.95 }}
-              >
-                Download CV
-              </motion.button>
+              </motion.a>
             </motion.div>
             
             <motion.div 
@@ -375,16 +379,18 @@ export default function Home() {
               whileInView="visible"
               viewport={{ once: true }}
             >
-              {['GitHub', 'LinkedIn', 'Twitter'].map((social) => (
+              {Object.entries(contactInfo.social).map(([platform, url]) => (
                 <motion.a
-                  key={social}
-                  href="#"
-                  className="text-gray-400 hover:text-white text-lg"
+                  key={platform}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-white text-lg capitalize"
                   variants={fadeInUp}
                   whileHover={{ y: -3, color: "#ffffff" }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  {social}
+                  {platform === 'github' ? 'GitHub' : platform === 'linkedin' ? 'LinkedIn' : platform === 'twitter' ? 'Twitter' : platform}
                 </motion.a>
               ))}
             </motion.div>
