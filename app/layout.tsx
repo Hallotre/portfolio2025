@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Toby Haywood Portfolio",
+  title: "Toby Haywood | Portfolio",
   description: "A showcase of creative development work featuring modern design and innovative solutions.",
   keywords: ["portfolio", "developer", "web development", "design", "creative", "Toby Haywood"],
   icons: {
