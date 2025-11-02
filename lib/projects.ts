@@ -132,6 +132,82 @@ Key features include venue browsing and filtering, calendar-based booking system
           'Developed skills in integrating third-party services like Mapbox for enhanced functionality'
         ]
       }
+  },
+  'halloween-games': {
+    title: 'Halloween Games - Spooky Game Suggester',
+    shortDescription: 'A web app for Skibens chat to suggest spooky games for Halloween streaming',
+    detailedDescription: `Halloween Games is an interactive web application built for streamer Skibens' chat community to suggest spooky games for Halloween streaming sessions. The platform enables viewers to submit and vote on horror games, creating an engaging community-driven experience.
+
+Built with Next.js, TypeScript, and Tailwind CSS, the application features Twitch OAuth authentication for secure user access. The platform integrates with Supabase for database management and the Steam API for comprehensive game search functionality. The smart search system includes typo tolerance, acronym matching, and fuzzy matching algorithms to help users find the perfect spooky game.
+
+Key features include game suggestion submission with smart Steam search integration, voting system allowing users to upvote their favorite spooky games, Twitch authentication for secure user management, admin panel for content moderation, and real-time vote counting and game rankings. The platform demonstrates modern full-stack development with authentication, database management, and third-party API integration.
+
+The application showcases expertise in NextAuth.js for authentication, Supabase for database operations, Steam API integration for game data, and responsive design with Tailwind CSS for optimal user experience across all devices.`,
+    image: '/halloweenpage.png',
+    imageCaption: 'Halloween Games - Spooky game suggestion platform for streamers',
+    liveUrl: 'https://skibenshalloween.vercel.app',
+    githubUrl: 'https://github.com/Hallotre/halloween-games',
+    tech: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'NextAuth.js', 'Supabase', 'Steam API', 'Vercel'],
+    gradient: 'from-orange-500 to-red-500',
+    slug: 'halloween-games',
+    reflections: {
+      strengths: [
+        'Successfully implemented Twitch OAuth authentication with NextAuth.js for secure user access',
+        'Created an intuitive voting system with real-time updates and user-friendly interface',
+        'Integrated smart Steam API search with typo tolerance and fuzzy matching algorithms',
+        'Built comprehensive admin panel for content moderation and community management'
+      ],
+      improvements: [
+        'Enhanced search algorithm with better ranking and relevance scoring',
+        'Improved user experience with better game discovery and filtering options',
+        'Added comprehensive analytics dashboard for streamer insights',
+        'Optimized database queries for better performance with large datasets'
+      ],
+      learnings: [
+        'Mastered NextAuth.js configuration for OAuth providers like Twitch',
+        'Learned advanced Supabase patterns for real-time data and RLS policies',
+        'Gained experience with third-party API integration and rate limiting strategies',
+        'Developed skills in building community-driven features with voting and moderation systems'
+      ]
+    }
+  },
+  'skiben-site': {
+    title: 'Skiben Site - Video Submission Platform',
+    shortDescription: 'A Next.js application enabling streamers to collect, moderate, and review video submissions from viewers',
+    detailedDescription: `Skiben Site is a comprehensive video submission platform designed for streamers to engage with their community through viewer-submitted content. The application allows streamers to collect, moderate, and review video submissions from their audience, creating an interactive and engaging content creation workflow.
+
+Built with Next.js 14+ (App Router), TypeScript, and Supabase, the platform features a modern, responsive design that works seamlessly across all devices. The application includes video submission functionality for YouTube and TikTok videos, moderation tools for content review, Twitch OAuth authentication for secure access, and an intuitive interface for both streamers and viewers.
+
+Key features include video submission system with YouTube and TikTok support, moderation dashboard with role-based access control (viewers, moderators, streamers, admins), real-time updates using Supabase subscriptions, Twitch authentication for secure user management, comprehensive moderation logging, and contest management system. The platform demonstrates modern full-stack development with authentication, database management, and real-time capabilities.
+
+The application showcases expertise in Next.js App Router, Supabase for PostgreSQL database and authentication, Twitch OAuth integration, role-based access control (RBAC), and creating intuitive moderation interfaces for content creators. The platform emphasizes security with Row Level Security policies, performance, and user-friendly design principles.`,
+    image: '/skibenspage.png',
+    imageCaption: 'Skiben Site - Video submission platform for streamers with Twitch authentication',
+    liveUrl: 'https://skiben-site.vercel.app',
+    githubUrl: 'https://github.com/Hallotre/skiben-site',
+    tech: ['Next.js 14', 'TypeScript', 'Supabase', 'Twitch OAuth', 'Tailwind CSS', 'PostgreSQL', 'Vercel'],
+    gradient: 'from-purple-500 to-indigo-500',
+    slug: 'skiben-site',
+    reflections: {
+      strengths: [
+        'Successfully integrated Twitch OAuth authentication with Supabase for secure user management',
+        'Implemented comprehensive role-based access control with four user tiers (Viewer, Moderator, Streamer, Admin)',
+        'Built real-time updates using Supabase subscriptions for live content moderation',
+        'Created robust Row Level Security (RLS) policies for database security and data protection'
+      ],
+      improvements: [
+        'Developed advanced moderation logging system to track all content review actions',
+        'Enhanced user experience with intuitive dashboards for different user roles',
+        'Implemented contest management system to organize video submissions by events',
+        'Added comprehensive metadata tracking for video submissions including timestamps and sources'
+      ],
+      learnings: [
+        'Mastered Supabase authentication integration with third-party OAuth providers like Twitch',
+        'Learned advanced PostgreSQL features including RLS policies and complex table relationships',
+        'Gained expertise in building scalable role-based permission systems',
+        'Developed skills in real-time data synchronization and WebSocket management with Supabase'
+      ]
+    }
   }
 }
 
