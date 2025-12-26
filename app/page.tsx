@@ -4,10 +4,8 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { projectsArray } from '@/lib/projects'
-import { useState } from 'react'
 
 export default function Home() {
-  const [mounted, setMounted] = useState(false)
 
   const contactInfo = {
     email: "tobyhaywood@proton.me",
@@ -76,7 +74,7 @@ export default function Home() {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
-              Let's Talk
+              Let&apos;s Talk
             </motion.a>
           </div>
         </div>
@@ -220,11 +218,11 @@ export default function Home() {
                 </p>
                 <p>
                   My focus is on delivering clean, maintainable code and user-friendly interfaces. 
-                  From e-commerce platforms to booking systems, I've built full-stack applications 
+                  From e-commerce platforms to booking systems, I&apos;ve built full-stack applications 
                   with authentication, databases, and third-party API integrations.
                 </p>
                 <p>
-                  Recently completed Frontend Development at Noroff. I've worked on real-world projects 
+                  Recently completed Frontend Development at Noroff. I&apos;ve worked on real-world projects 
                   for streamers and communities, and continue building with new technologies.
                 </p>
               </div>
@@ -420,10 +418,10 @@ export default function Home() {
             >
               <span className="badge mb-6">Get in Touch</span>
               <h2 className="heading-large mb-8">
-                Let's Build Something <span className="text-[#8b6f47]">Amazing</span>
+                Let&apos;s Build Something <span className="text-[#8b6f47]">Amazing</span>
               </h2>
               <p className="text-gray-400 text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
-                Have a project in mind? Let's collaborate and bring your ideas to life
+                Have a project in mind? Let&apos;s collaborate and bring your ideas to life
                 with modern technology and thoughtful design.
               </p>
 
