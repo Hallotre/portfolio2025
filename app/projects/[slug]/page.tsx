@@ -26,60 +26,48 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
     <>
       {/* Navigation */}
       <motion.nav 
-        className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-2xl px-6"
+        className="fixed top-0 left-0 right-0 z-50 glass-nav"
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
       >
-        <div className="glass-nav rounded-full px-8 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <motion.span 
-              className="text-emerald-400 text-xl"
-              whileHover={{ x: -4 }}
+        <div className="container-fluid">
+          <div className="flex items-center justify-between h-20">
+            <Link href="/" className="flex items-center gap-3 group">
+              <motion.span 
+                className="text-[#8b6f47] text-xl"
+                whileHover={{ x: -4 }}
+              >
+                ←
+              </motion.span>
+              <span className="text-2xl font-bold text-[#8b6f47]">HAYWOOD</span>
+            </Link>
+            
+            <motion.button
+              onClick={copyToClipboard}
+              className="px-5 py-2.5 glass-card rounded font-medium text-sm hover:bg-[#8b6f47]/10 transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              ←
-            </motion.span>
-            <span className="text-2xl font-bold text-gradient-emerald">HAYWOOD</span>
-          </Link>
-          
-          <motion.button
-            onClick={copyToClipboard}
-            className="px-4 py-2 glass-card rounded-full text-sm font-medium hover:bg-emerald-500/10 transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {copied ? '✓ Copied!' : 'Share'}
-          </motion.button>
+              {copied ? '✓ Copied!' : 'Share Project'}
+            </motion.button>
+          </div>
         </div>
       </motion.nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 relative overflow-hidden">
+      <section className="pt-32 pb-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid opacity-20" />
         
         <div className="container-fluid relative z-10">
           <div className="max-w-5xl mx-auto">
-            {project.slug === 'semester-project-2' && (
-              <motion.div 
-                className="mb-6"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ type: "spring" }}
-              >
-                <span className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500/10 border border-amber-500/30 text-amber-400 rounded-full text-sm font-semibold">
-                  <span className="w-2 h-2 bg-amber-500 rounded-full animate-pulse" />
-                  Under Resit - Coming Soon
-                </span>
-              </motion.div>
-            )}
-            
             <motion.h1 
-              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
+              className="heading-massive mb-8"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <span className="text-gradient-emerald">{project.title}</span>
+              <span className="text-[#8b6f47]">{project.title}</span>
             </motion.h1>
             
             <motion.p 
@@ -97,39 +85,26 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              {project.slug === 'semester-project-2' ? (
-                <>
-                  <div className="btn-neon opacity-50 cursor-not-allowed">
-                    Coming After Resit
-                  </div>
-                  <div className="btn-outline-neon opacity-50 cursor-not-allowed">
-                    Repository Pending
-                  </div>
-                </>
-              ) : (
-                <>
-                  <motion.a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-neon"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <span className="relative z-10">View Live →</span>
-                  </motion.a>
-                  <motion.a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-outline-neon"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    GitHub
-                  </motion.a>
-                </>
-              )}
+              <motion.a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-neon"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="relative z-10">View Live Site →</span>
+              </motion.a>
+              <motion.a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-outline-neon"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                View on GitHub
+              </motion.a>
             </motion.div>
 
             <motion.div 
@@ -141,7 +116,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
               {project.tech.map((tech) => (
                 <motion.span
                   key={tech}
-                  className="px-4 py-2 bg-emerald-500/10 text-emerald-400 rounded-full text-sm font-medium border border-emerald-500/20"
+                  className="px-4 py-2 bg-[#8b6f47]/10 text-[#a88d65] rounded text-sm font-medium border border-[#8b6f47]/20"
                   whileHover={{ scale: 1.1, y: -2 }}
                 >
                   {tech}
@@ -152,8 +127,8 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
         </div>
       </section>
 
-      {/* Project Image */}
-      <section className="py-16">
+      {/* Project Image - Full Width Showcase */}
+      <section className="py-20 bg-[#1a1a1a]">
         <div className="container-fluid">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -162,7 +137,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
             transition={{ duration: 0.8 }}
             className="max-w-6xl mx-auto"
           >
-            <div className="relative rounded-3xl overflow-hidden border-2 border-emerald-500/20">
+            <div className="relative rounded overflow-hidden border border-[#8b6f47]/20 image-zoom-container">
               <div className="relative w-full aspect-video">
                 {project.image ? (
                   <>
@@ -170,25 +145,25 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                       src={project.image}
                       alt={project.imageCaption}
                       fill
-                      className="object-cover object-top"
+                      className="object-cover object-top image-zoom"
                       sizes="(max-width: 1200px) 100vw, 1200px"
                       priority
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
                   </>
                 ) : (
                   <div className={`w-full h-full bg-gradient-to-br ${project.gradient} flex items-center justify-center`}>
                     <div className="text-center text-white p-8">
-                      <div className="text-8xl mb-4 floating">📚</div>
-                      <div className="text-2xl font-bold mb-2">Project Under Development</div>
-                      <div className="text-lg opacity-80">Coming after resit completion</div>
+                      <div className="text-8xl mb-6 floating">📚</div>
+                      <div className="text-3xl font-bold mb-3">Project Screenshot</div>
+                      <div className="text-xl opacity-80">Coming soon</div>
                     </div>
                   </div>
                 )}
               </div>
             </div>
             <motion.p 
-              className="text-gray-500 text-center italic mt-6"
+              className="text-gray-500 text-center italic mt-8 text-lg"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -200,8 +175,8 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
         </div>
       </section>
 
-      {/* Project Description */}
-      <section className="py-20 relative">
+      {/* Project Description - Split Layout Style */}
+      <section className="section-padding relative">
         <div className="absolute inset-0 bg-dots opacity-10" />
         
         <div className="container-fluid relative z-10">
@@ -212,8 +187,9 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="heading-large mb-8">
-                <span className="text-gradient-emerald">Overview</span>
+              <span className="badge mb-8">Project Overview</span>
+              <h2 className="heading-large mb-10">
+                <span className="text-[#8b6f47]">About This Project</span>
               </h2>
               <div className="text-gray-400 text-lg leading-relaxed space-y-6 whitespace-pre-line">
                 {project.detailedDescription}
@@ -223,8 +199,8 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
         </div>
       </section>
 
-      {/* Reflections */}
-      <section className="py-20 relative">
+      {/* Reflections - Card Grid */}
+      <section className="section-padding relative bg-[#1a1a1a]">
         <div className="absolute inset-0 bg-grid opacity-10" />
         
         <div className="container-fluid relative z-10">
@@ -235,9 +211,9 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <span className="text-emerald-400 font-semibold mb-4 block">Project Reflection</span>
+              <span className="badge mb-6">Reflection</span>
               <h2 className="heading-large">
-                <span className="text-gradient-emerald">Insights & Learnings</span>
+                <span className="text-[#8b6f47]">Key Insights & Learnings</span>
               </h2>
             </motion.div>
 
@@ -251,7 +227,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                 transition={{ duration: 0.5 }}
               >
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center text-2xl">
+                  <div className="w-12 h-12 rounded-full bg-[#8b6f47]/20 flex items-center justify-center text-2xl">
                     ✓
                   </div>
                   <h3 className="text-2xl font-bold text-white">Strengths</h3>
@@ -260,7 +236,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                   {project.reflections.strengths.map((strength) => (
                     <motion.li 
                       key={strength.substring(0, 30)} 
-                      className="text-gray-400 leading-relaxed pl-4 border-l-2 border-emerald-500/30"
+                      className="text-gray-400 leading-relaxed pl-4 border-l-2 border-[#8b6f47]/30"
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
@@ -280,7 +256,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                 transition={{ duration: 0.5, delay: 0.1 }}
               >
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-full bg-teal-500/20 flex items-center justify-center text-2xl">
+                  <div className="w-12 h-12 rounded-full bg-[#a88d65]/20 flex items-center justify-center text-2xl">
                     ↑
                   </div>
                   <h3 className="text-2xl font-bold text-white">Improvements</h3>
@@ -289,7 +265,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                   {project.reflections.improvements.map((improvement) => (
                     <motion.li 
                       key={improvement.substring(0, 30)} 
-                      className="text-gray-400 leading-relaxed pl-4 border-l-2 border-teal-500/30"
+                      className="text-gray-400 leading-relaxed pl-4 border-l-2 border-[#a88d65]/30"
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
@@ -309,7 +285,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-full bg-cyan-500/20 flex items-center justify-center text-2xl">
+                  <div className="w-12 h-12 rounded-full bg-[#d4af37]/20 flex items-center justify-center text-2xl">
                     ★
                   </div>
                   <h3 className="text-2xl font-bold text-white">Learnings</h3>
@@ -318,7 +294,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                   {project.reflections.learnings.map((learning) => (
                     <motion.li 
                       key={learning.substring(0, 30)} 
-                      className="text-gray-400 leading-relaxed pl-4 border-l-2 border-cyan-500/30"
+                      className="text-gray-400 leading-relaxed pl-4 border-l-2 border-[#d4af37]/30"
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
@@ -333,8 +309,8 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
         </div>
       </section>
 
-      {/* Next Steps */}
-      <section className="py-24">
+      {/* CTA Section */}
+      <section className="section-padding">
         <div className="container-fluid">
           <motion.div
             className="max-w-4xl mx-auto text-center"
@@ -342,8 +318,8 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-3xl font-bold mb-8">
-              <span className="text-gradient-emerald">Explore More</span>
+            <h3 className="heading-section mb-8">
+              <span className="text-[#8b6f47]">Explore More Projects</span>
             </h3>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -363,10 +339,10 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
       </section>
 
       {/* Footer */}
-      <footer className="py-8 border-t border-gray-800/50">
+      <footer className="py-16 border-t border-[#8b6f47]/20">
         <div className="container-fluid">
           <div className="text-center">
-            <p className="text-gray-500 text-sm">
+            <p className="text-gray-500">
               © 2025 Toby Haywood. Crafted with Next.js & Framer Motion.
             </p>
           </div>

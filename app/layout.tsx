@@ -46,8 +46,7 @@ export default function RootLayout({
         <div className="relative min-h-screen">
           {/* Background effects */}
           <div className="fixed inset-0 -z-10">
-            <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-black to-gray-900" />
-            <div className="absolute inset-0 grid-pattern opacity-[0.02]" />
+            <div className="absolute inset-0 bg-[#0a0a0a]" />
           </div>
           
           {children}

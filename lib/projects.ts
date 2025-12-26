@@ -21,12 +21,12 @@ export interface Project {
 export const projects: Record<string, Project> = {
   'javascript-frameworks': {
     title: 'Ecom Store - React E-commerce Platform',
-    shortDescription: 'Modern e-commerce application built with React, TypeScript, and Vite',
-    detailedDescription: `A comprehensive e-commerce platform showcasing modern React development practices with TypeScript. This project demonstrates advanced frontend development skills including component architecture, state management, and responsive design.
+    shortDescription: 'E-commerce application built with React, TypeScript, and Vite',
+    detailedDescription: `E-commerce platform built with React 18, TypeScript, and Vite. Features product browsing, shopping cart, checkout process, and authentication.
 
-Built with React 18, TypeScript, and Vite for optimal development experience and performance. The application features a complete shopping experience with product browsing, cart management, checkout process, and user authentication. The project emphasizes clean code architecture, type safety, and modern development workflows.
+Technical stack includes React Context API for state management, custom hooks for business logic, CSS Modules for styling, and TypeScript for type safety. Responsive design works across all device sizes.
 
-Key technical implementations include custom hooks for business logic, context API for state management, responsive design with CSS modules, and comprehensive error handling. The application demonstrates understanding of modern React patterns, performance optimization, and user experience design principles.`,
+Built with Vite for fast development and optimized production builds. Includes error handling, form validation, and clean component architecture.`,
     image: '/ecomstore.png',
     imageCaption: 'Ecom Store - Modern React e-commerce platform with TypeScript',
     liveUrl: 'https://ecom-store-ca.netlify.app',
@@ -56,55 +56,49 @@ Key technical implementations include custom hooks for business logic, context A
     }
   },
   'semester-project-2': {
-    title: 'Pawsitive Home - Pet Adoption Platform',
-    shortDescription: 'Currently under resit - Pet adoption platform connecting loving families with rescue animals',
-    detailedDescription: `Pawsitive Home is a comprehensive pet adoption platform being developed for Semester Project 2 of the Frontend Development course. This project is currently under resit and focuses on creating a user-friendly platform that connects potential pet owners with rescue animals in need of loving homes.
+    title: 'Pawsitive - Pet Adoption Platform',
+    shortDescription: 'Pet adoption platform built with Next.js, TypeScript, and Tailwind CSS',
+    detailedDescription: `Pet adoption platform connecting families with adoptable pets. Built with Next.js App Router, TypeScript, and Tailwind CSS.
 
-The platform will showcase modern frontend development skills using TypeScript for type safety and robust code architecture. The project emphasizes responsive design with Tailwind CSS, creating an intuitive user experience that works seamlessly across all devices.
+Features real-time search, filtering by size/age/type, detailed pet profiles, and pagination. Admin dashboard with authentication allows managing pet listings with full CRUD operations. Authentication combines Noroff API validation with encrypted session management.
 
-Key features will include pet browsing and filtering, detailed pet profiles with photos and information, adoption application system, user registration and profiles, and search functionality to help families find their perfect companion. The project will demonstrate advanced frontend concepts while addressing a meaningful real-world need.
-
-The application will be deployed on Vercel, ensuring fast loading times and reliable hosting. The design process includes comprehensive planning and prototyping in Figma to ensure an optimal user experience for both pet seekers and adoption centers.
-
-**Status: Under Resit - Coming Soon**`,
-    image: '',
-    imageCaption: 'Pawsitive Home - Pet Adoption Platform (Under Resit)',
-    liveUrl: '#',
-    githubUrl: '#',
-    tech: ['TypeScript', 'Tailwind CSS', 'Figma', 'Vercel'],
-    gradient: 'from-cyan-500 to-blue-500',
+Technical implementation includes custom React hooks with cleanup, skeleton loading states, advanced filtering system, role-based access control, and WCAG 2.1 AA accessibility compliance. Mobile-first responsive design.`,
+    image: '/pawsitive.png',
+    imageCaption: 'Pawsitive - Modern pet adoption platform with admin management system',
+    liveUrl: 'https://pawsitive-pet-adoption.vercel.app',
+    githubUrl: 'https://github.com/Hallotre/pawsitive',
+    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Noroff API', 'React Hooks', 'Session Management', 'Vercel'],
+    gradient: 'from-orange-500 to-amber-500',
     slug: 'semester-project-2',
-          reflections: {
-        strengths: [
-          'Strong foundation in TypeScript for type-safe development and better code reliability',
-          'Understanding of modern CSS frameworks like Tailwind for efficient styling',
-          'Experience with design-to-development workflow using Figma for prototyping',
-          'Knowledge of modern deployment platforms like Vercel for seamless hosting'
-        ],
-        improvements: [
-          'Project currently under development during resit period',
-          'Will incorporate feedback from previous assessments to improve user experience design',
-          'Focus on implementing accessible design principles for inclusive pet adoption platform',
-          'Enhanced responsive design to ensure optimal experience across all devices'
-        ],
-        learnings: [
-          'Opportunity to work on a meaningful project that addresses real-world social needs',
-          'Experience with TypeScript development for more robust frontend applications',
-          'Understanding of user-centered design principles for adoption and matching systems',
-          'Skills in creating emotionally engaging interfaces for pet adoption scenarios'
-        ]
-      }
+    reflections: {
+      strengths: [
+        'Implemented hybrid authentication system combining API validation with secure local session management',
+        'Built comprehensive CRUD operations with role-based access control for admin features',
+        'Created custom React hooks with proper cleanup to prevent race conditions and memory leaks',
+        'Achieved WCAG 2.1 AA accessibility compliance with semantic HTML, ARIA labels, and keyboard navigation'
+      ],
+      improvements: [
+        'Developed advanced filtering system with real-time search and debounced API calls for performance',
+        'Enhanced user experience with skeleton loading states and comprehensive error handling',
+        'Implemented encrypted session persistence with 7-day expiry for secure authentication',
+        'Built responsive mobile-first design with breakpoints for mobile, tablet, and desktop devices'
+      ],
+      learnings: [
+        'Mastered Next.js App Router architecture with protected routes and middleware authentication',
+        'Learned advanced TypeScript patterns for type-safe API integration and data validation',
+        'Gained expertise in accessibility standards and implementing WCAG 2.1 AA compliance',
+        'Developed skills in session management, encryption, and secure authentication flows'
+      ]
+    }
   },
   'exam-project-2': {
     title: 'Holidaze - Accommodation Booking Platform',
-    shortDescription: 'Comprehensive booking platform with dual customer and admin interfaces built with Next.js',
-    detailedDescription: `Holidaze is a sophisticated accommodation booking platform developed as the final exam project for the Frontend Development course. This comprehensive application features both customer-facing booking functionality and admin-facing venue management capabilities.
+    shortDescription: 'Booking platform with customer and admin interfaces built with Next.js',
+    detailedDescription: `Accommodation booking platform with dual interfaces for customers and venue managers. Built with Next.js App Router, React, and TypeScript.
 
-Built with Next.js (App Router), React, and TypeScript, the platform demonstrates advanced full-stack frontend development skills. The project includes user authentication with role-based access control, venue management with CRUD operations, booking system with date selection, and interactive map integration using Mapbox GL.
+Customer features include venue browsing, filtering, calendar-based booking, and profile management. Admin features include venue creation/editing, booking management, and CRUD operations with role-based access control.
 
-The application showcases modern development practices including state management with Zustand and React Query, form handling with React Hook Form and Zod validation, responsive design with Tailwind CSS, and UI components built with Radix UI primitives. The project emphasizes accessibility compliance, performance optimization, and comprehensive user experience design.
-
-Key features include venue browsing and filtering, calendar-based booking system, user profile management, venue creation and management for admin users, and location-based search with map visualization.`,
+Technical stack: Zustand and React Query for state management, React Hook Form with Zod validation, Tailwind CSS, Radix UI components, and Mapbox GL for location visualization. Responsive design with accessibility compliance.`,
     image: '/holidaze.png',
     imageCaption: 'Holidaze - Full-featured accommodation booking platform with Next.js',
     liveUrl: 'https://holidaze-five.vercel.app',
@@ -135,14 +129,12 @@ Key features include venue browsing and filtering, calendar-based booking system
   },
   'halloween-games': {
     title: 'Halloween Games - Spooky Game Suggester',
-    shortDescription: 'A web app for Skibens chat to suggest spooky games for Halloween streaming',
-    detailedDescription: `Halloween Games is an interactive web application built for streamer Skibens' chat community to suggest spooky games for Halloween streaming sessions. The platform enables viewers to submit and vote on horror games, creating an engaging community-driven experience.
+    shortDescription: 'Community voting platform for horror game suggestions built for Twitch streamer',
+    detailedDescription: `Web application for Twitch streamer Skibens' community to suggest and vote on horror games for Halloween streams. Built with Next.js, TypeScript, and Tailwind CSS.
 
-Built with Next.js, TypeScript, and Tailwind CSS, the application features Twitch OAuth authentication for secure user access. The platform integrates with Supabase for database management and the Steam API for comprehensive game search functionality. The smart search system includes typo tolerance, acronym matching, and fuzzy matching algorithms to help users find the perfect spooky game.
+Features Twitch OAuth authentication via NextAuth.js, game search with Steam API integration including fuzzy matching and typo tolerance, voting system with real-time counting, and admin panel for moderation. Uses Supabase for database and authentication.
 
-Key features include game suggestion submission with smart Steam search integration, voting system allowing users to upvote their favorite spooky games, Twitch authentication for secure user management, admin panel for content moderation, and real-time vote counting and game rankings. The platform demonstrates modern full-stack development with authentication, database management, and third-party API integration.
-
-The application showcases expertise in NextAuth.js for authentication, Supabase for database operations, Steam API integration for game data, and responsive design with Tailwind CSS for optimal user experience across all devices.`,
+Viewers submit game suggestions, community votes on favorites, and streamer moderates submissions. All integrated with Twitch accounts for user management.`,
     image: '/halloweenpage.png',
     imageCaption: 'Halloween Games - Spooky game suggestion platform for streamers',
     liveUrl: 'https://skibenshalloween.vercel.app',
@@ -173,14 +165,12 @@ The application showcases expertise in NextAuth.js for authentication, Supabase 
   },
   'skiben-site': {
     title: 'Skiben Site - Video Submission Platform',
-    shortDescription: 'A Next.js application enabling streamers to collect, moderate, and review video submissions from viewers',
-    detailedDescription: `Skiben Site is a comprehensive video submission platform designed for streamers to engage with their community through viewer-submitted content. The application allows streamers to collect, moderate, and review video submissions from their audience, creating an interactive and engaging content creation workflow.
+    shortDescription: 'Video submission and moderation platform for streamers built with Next.js and Supabase',
+    detailedDescription: `Platform for streamers to collect and moderate video submissions from viewers. Built with Next.js 14 App Router, TypeScript, and Supabase.
 
-Built with Next.js 14+ (App Router), TypeScript, and Supabase, the platform features a modern, responsive design that works seamlessly across all devices. The application includes video submission functionality for YouTube and TikTok videos, moderation tools for content review, Twitch OAuth authentication for secure access, and an intuitive interface for both streamers and viewers.
+Supports YouTube and TikTok video submissions with role-based access control (Viewer, Moderator, Streamer, Admin). Features real-time updates via Supabase subscriptions, Twitch OAuth authentication, moderation dashboard, and contest management system.
 
-Key features include video submission system with YouTube and TikTok support, moderation dashboard with role-based access control (viewers, moderators, streamers, admins), real-time updates using Supabase subscriptions, Twitch authentication for secure user management, comprehensive moderation logging, and contest management system. The platform demonstrates modern full-stack development with authentication, database management, and real-time capabilities.
-
-The application showcases expertise in Next.js App Router, Supabase for PostgreSQL database and authentication, Twitch OAuth integration, role-based access control (RBAC), and creating intuitive moderation interfaces for content creators. The platform emphasizes security with Row Level Security policies, performance, and user-friendly design principles.`,
+Technical implementation includes Next.js App Router, Supabase PostgreSQL with Row Level Security policies, Twitch authentication integration, and comprehensive moderation logging. Four-tier permission system for different user roles.`,
     image: '/skibenspage.png',
     imageCaption: 'Skiben Site - Video submission platform for streamers with Twitch authentication',
     liveUrl: 'https://skiben-site.vercel.app',
@@ -206,6 +196,44 @@ The application showcases expertise in Next.js App Router, Supabase for PostgreS
         'Learned advanced PostgreSQL features including RLS policies and complex table relationships',
         'Gained expertise in building scalable role-based permission systems',
         'Developed skills in real-time data synchronization and WebSocket management with Supabase'
+      ]
+    }
+  },
+  'varden-gym': {
+    title: 'Varden Gym - Modern Fitness Website',
+    shortDescription: 'Website for a 24/7 gym in Karmsund, Norway, built with vanilla HTML, CSS, and JavaScript',
+    detailedDescription: `Website concept for Varden Gym, a fitness center in Karmsund, Norway. Built entirely with vanilla HTML5, CSS3, and JavaScript - no frameworks or libraries.
+
+The site features five pages: home, about, pricing, gallery, and contact. Responsive design works across mobile, tablet, and desktop using CSS Grid and Flexbox. Dark theme with bronze accents matches the gym's branding.
+
+Technical implementation includes semantic HTML5 markup, CSS custom properties for consistent theming, mobile-first responsive layouts, lazy loading for images, and form validation with vanilla JavaScript. The design uses full-screen hero sections, generous spacing, and the Inter font family.
+
+Displays key information: 349 NOK/month membership, 24/7 access with QR entry, and no binding contracts. All built without framework dependencies.`,
+    image: '/vardengym.png',
+    imageCaption: 'Varden Gym - Modern fitness website with image-first design approach',
+    liveUrl: 'https://varden-gym.vercel.app',
+    githubUrl: 'https://github.com/Hallotre/VardenGym',
+    tech: ['HTML5', 'CSS3', 'JavaScript', 'Flexbox', 'CSS Grid', 'Responsive Design'],
+    gradient: 'from-amber-600 to-yellow-500',
+    slug: 'varden-gym',
+    reflections: {
+      strengths: [
+        'Demonstrated mastery of vanilla web technologies without relying on frameworks',
+        'Created professional, production-ready design with image-first approach',
+        'Built fully responsive layouts using modern CSS Grid and Flexbox techniques',
+        'Implemented semantic HTML5 with accessibility considerations and SEO optimization'
+      ],
+      improvements: [
+        'Applied premium design system with generous spacing and sophisticated color palette',
+        'Optimized performance with lazy loading images and minimal JavaScript footprint',
+        'Created consistent user experience across all pages with reusable CSS patterns',
+        'Designed mobile-first responsive layouts that scale elegantly to desktop'
+      ],
+      learnings: [
+        'Gained deep understanding of CSS Grid and Flexbox for complex responsive layouts',
+        'Learned to create professional designs without framework dependencies',
+        'Developed skills in performance optimization and web standards best practices',
+        'Improved understanding of modern CSS features like custom properties and clamp()'
       ]
     }
   }
