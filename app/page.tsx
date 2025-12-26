@@ -188,10 +188,10 @@ export default function Home() {
               <div className="relative image-zoom-container rounded overflow-hidden" style={{ minHeight: '500px' }}>
                 <div className="absolute inset-0 border border-[#8b6f47]/20" />
                 <Image
-                  src="/portrait.png"
+                  src="/headshot_1.jpg"
                   alt="Toby Haywood"
                   fill
-                  className="object-cover image-zoom"
+                  className="object-cover image-zoom object-[center_20%]"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </div>
