@@ -30,7 +30,6 @@ export default function Home() {
   const stats = [
     { number: "5+", label: "Projects Completed" },
     { number: "2+", label: "Years Experience" },
-    { number: "100%", label: "Client Satisfaction" },
     { number: "∞", label: "Learning & Growing" }
   ]
 
@@ -151,7 +150,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-[#1a1a1a]" />
         
         <div className="container-fluid relative z-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto">
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -176,32 +175,11 @@ export default function Home() {
       {/* About Section - Split Layout */}
       <section id="about" className="section-padding relative">
         <div className="container-fluid relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-7xl mx-auto">
-            {/* Image Side */}
-            <motion.div
-              className="relative order-2 lg:order-1"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="relative image-zoom-container rounded overflow-hidden" style={{ minHeight: '500px' }}>
-                <div className="absolute inset-0 border border-[#8b6f47]/20" />
-                <Image
-                  src="/headshot_1.jpg"
-                  alt="Toby Haywood"
-                  fill
-                  className="object-cover image-zoom object-[center_20%]"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-              </div>
-            </motion.div>
-
+          <div className="max-w-4xl mx-auto">
             {/* Content Side */}
             <motion.div
-              className="order-1 lg:order-2"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
