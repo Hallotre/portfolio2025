@@ -14,7 +14,6 @@ import {
   CONTACT_PROJECT_TYPES,
   type ContactFieldErrors,
   type ContactFormMode,
-  buildInquiryMessage,
   sanitizeContactInput,
   validateContactInput,
 } from '@/lib/contact-form'
@@ -124,14 +123,6 @@ export default function ContactForm() {
     setStatus('submitting')
     setErrorMessage('')
 
-    const composedMessage = isInquiry
-      ? buildInquiryMessage({
-          message: sanitized.message,
-          projectType: sanitized.projectType,
-          website: sanitized.website,
-        })
-      : sanitized.message
-
     // Subject is built only from whitelisted project types — never raw user newlines
     const subject = isInquiry
       ? sanitized.projectType
@@ -140,21 +131,28 @@ export default function ContactForm() {
       : 'Portfolio contact'
 
     try {
-      // Web3Forms React docs use FormData (not JSON)
+      // Web3Forms React docs use FormData (not JSON).
+      // Inquiry extras are sent as fields only — not also pasted into message.
       const formData = new FormData()
       formData.append('access_key', accessKey)
       formData.append('name', sanitized.name)
       formData.append('email', sanitized.email)
-      formData.append('message', composedMessage)
+      formData.append('message', sanitized.message)
       formData.append('subject', subject)
       formData.append('from_name', 'Toby Haywood Portfolio')
-      formData.append('form_type', isInquiry ? 'Project inquiry' : 'Simple contact')
       formData.append('h-captcha-response', captchaToken)
       formData.append('botcheck', botcheck)
 
       if (isInquiry) {
-        formData.append('project_type', sanitized.projectType || 'Not specified')
-        formData.append('current_website', sanitized.website || 'Not specified')
+        formData.append('form_type', 'Project inquiry')
+        if (sanitized.projectType) {
+          formData.append('project_type', sanitized.projectType)
+        }
+        if (sanitized.website) {
+          formData.append('current_website', sanitized.website)
+        }
+      } else {
+        formData.append('form_type', 'Say hello')
       }
 
       const response = await fetch(WEB3FORMS_ENDPOINT, {

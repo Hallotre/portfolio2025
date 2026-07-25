@@ -161,17 +161,3 @@ export function validateContactInput(
 
   return errors
 }
-
-export function buildInquiryMessage(input: {
-  message: string
-  projectType: string
-  website: string
-}): string {
-  return [
-    input.message,
-    '',
-    '--- Inquiry details ---',
-    `Project type: ${input.projectType || 'Not specified'}`,
-    `Current website: ${input.website || 'Not specified'}`,
-  ].join('\n')
-}
