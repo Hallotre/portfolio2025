@@ -1,39 +1,29 @@
-'use client'
-
-import { motion } from 'framer-motion'
 import Link from 'next/link'
+import SiteNav from '@/components/SiteNav'
+import SiteFooter from '@/components/SiteFooter'
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center">
-      <div className="container-modern text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <h1 className="text-6xl md:text-8xl font-bold mb-6">
-            <span className="gradient-text">404</span>
-          </h1>
-          
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">
-            Project Not Found
-          </h2>
-          
-          <p className="text-gray-300 text-lg mb-8 max-w-md mx-auto">
+    <>
+      <SiteNav variant="project" />
+      <div className="min-h-[70vh] flex items-center justify-center pt-20">
+        <div className="container-fluid text-center max-w-lg">
+          <p className="eyebrow mb-4">404</p>
+          <h1 className="heading-section mb-4">Project not found</h1>
+          <p className="text-[var(--color-text-secondary)] mb-8 leading-relaxed">
             The project you&apos;re looking for doesn&apos;t exist or has been moved.
           </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/" className="btn btn-primary">
-              Back to Portfolio
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link href="/" className="btn-primary">
+              Back to home
             </Link>
-            <Link href="/#projects" className="btn btn-secondary">
-              View All Projects
+            <Link href="/#work" className="btn-secondary">
+              View selected work
             </Link>
           </div>
-        </motion.div>
+        </div>
       </div>
-    </div>
+      <SiteFooter />
+    </>
   )
-} 
+}

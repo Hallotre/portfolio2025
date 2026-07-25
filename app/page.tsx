@@ -4,473 +4,420 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { projectsArray } from '@/lib/projects'
+import { getContactHref, SOCIAL_LINKS } from '@/lib/contact'
+import SiteNav from '@/components/SiteNav'
+import SiteFooter from '@/components/SiteFooter'
+import ContourBackdrop from '@/components/ContourBackdrop'
+import HeroAtmosphere from '@/components/HeroAtmosphere'
+import ProjectFlareBadge from '@/components/ProjectFlareBadge'
+import ContactForm from '@/components/ContactForm'
+
+const softEase = [0.22, 1, 0.36, 1] as const
+
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-50px' as const },
+  transition: { duration: 0.6, ease: softEase },
+}
+
+const whatIDo = [
+  {
+    title: 'Websites',
+    body: 'Clean, modern websites for people, brands, and small businesses that want something more thoughtful than a generic template. Usually this means focusing on structure, visual clarity, and a stronger overall impression.',
+  },
+  {
+    title: 'Front-end builds',
+    body: 'Responsive interfaces and polished front-end work with attention to spacing, hierarchy, interactions, and the small details that shape how a product feels to use.',
+  },
+  {
+    title: 'Concepts and experiments',
+    body: 'Self-initiated projects that let me explore ideas more freely, like a web app concept, a themed interface, or a more visual, interaction-focused build.',
+  },
+] as const
+
+const notes = [
+  'This site is intentionally selective. I’d rather show a smaller number of projects that feel representative than try to include everything.',
+  'Some projects here are closer to real-world freelance work, while others are more exploratory. Both matter, because they show different sides of how I think and build.',
+  'If you’re reaching out about a project, a short message with a bit of context is more than enough to start.',
+] as const
+
+const [featured, ...restProjects] = projectsArray
 
 export default function Home() {
-
-  const contactInfo = {
-    email: "tobyhaywood@proton.me",
-    social: {
-      github: "https://github.com/Hallotre",
-      linkedin: "https://linkedin.com/in/tobyhaywood",
-      X: "https://x.com/TobyHallotre"
-    }
-  }
-
-  const skills = [
-    { name: "React", category: "Frontend" },
-    { name: "Next.js", category: "Framework" },
-    { name: "TypeScript", category: "Language" },
-    { name: "Tailwind CSS", category: "Styling" },
-    { name: "Node.js", category: "Backend" },
-    { name: "Supabase", category: "Database" },
-    { name: "Framer Motion", category: "Animation" },
-    { name: "Git & GitHub", category: "Version Control" }
-  ]
-
-  const stats = [
-    { number: "5+", label: "Projects Completed" },
-    { number: "2+", label: "Years Experience" },
-    { number: "∞", label: "Learning & Growing" }
-  ]
-
   return (
     <>
-      {/* Sticky Navigation */}
-      <motion.nav 
-        className="fixed top-0 left-0 right-0 z-50 glass-nav"
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <div className="container-fluid">
-          <div className="flex items-center justify-between h-20">
-            <Link href="/">
-              <motion.div 
-                className="text-2xl font-bold text-[#8b6f47]"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                HAYWOOD
-              </motion.div>
-            </Link>
-            
-            <div className="hidden md:flex items-center gap-8">
-              {['Work', 'About', 'Skills', 'Contact'].map((item) => (
-                <motion.a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className="text-gray-400 hover:text-white transition-colors font-medium text-sm tracking-wide"
-                  whileHover={{ y: -2 }}
-                >
-                  {item}
-                </motion.a>
-              ))}
-            </div>
-            
-            <motion.a
-              href="#contact"
-              className="hidden md:block px-6 py-2.5 bg-[#8b6f47] text-white font-semibold rounded text-sm hover:bg-[#a88d65] transition-all"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Let&apos;s Talk
-            </motion.a>
-          </div>
-        </div>
-      </motion.nav>
+      <SiteNav />
 
-      {/* Hero Section */}
-      <section className="hero-section">
-        <div className="container-fluid relative z-10">
-          <div className="max-w-5xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <motion.span
-                className="badge mb-6"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ type: "spring", delay: 0.3 }}
-              >
-                <span className="w-2 h-2 bg-[#8b6f47] rounded-full animate-pulse" />
-                Frontend Developer
-              </motion.span>
-              
-              <motion.h1 
-                className="heading-massive mb-6 mt-6"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                <span className="block text-white mb-4">CRAFTING DIGITAL</span>
-                <span className="block text-[#8b6f47]">EXPERIENCES</span>
-              </motion.h1>
-              
-              <motion.p
-                className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-              >
-                Building modern web applications with elegant design and powerful functionality
-              </motion.p>
-              
-              <motion.div 
-                className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.8 }}
-              >
-                <motion.a 
-                  href="#work"
-                  className="btn-neon"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <span className="relative z-10">View My Work</span>
-                </motion.a>
-                <motion.a 
-                  href="#contact"
-                  className="btn-outline-neon"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Get In Touch
-                </motion.a>
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section - Quick Facts */}
-      <section className="py-20 md:py-24 relative">
-        <div className="absolute inset-0 bg-[#1a1a1a]" />
-        
-        <div className="container-fluid relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                className="text-center p-6 md:p-8 glass-card"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <div className="text-4xl md:text-5xl font-bold text-[#8b6f47] mb-2">
-                  {stat.number}
-                </div>
-                <div className="text-sm md:text-base text-gray-400 font-medium">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* About Section - Split Layout */}
-      <section id="about" className="section-padding relative">
-        <div className="container-fluid relative z-10">
-          <div className="max-w-4xl mx-auto">
-            {/* Content Side */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <span className="badge mb-6">About</span>
-              
-              <h2 className="heading-large mb-8">
-                Toby <span className="text-[#8b6f47]">Haywood</span>
-              </h2>
-              
-              <div className="space-y-6 text-gray-400 text-lg leading-relaxed">
-                <p>
-                  Frontend developer based in Norway, specializing in building modern web applications. 
-                  I work primarily with React, Next.js, and TypeScript to create functional and responsive solutions.
-                </p>
-                <p>
-                  My focus is on delivering clean, maintainable code and user-friendly interfaces. 
-                  From e-commerce platforms to booking systems, I&apos;ve built full-stack applications 
-                  with authentication, databases, and third-party API integrations.
-                </p>
-                <p>
-                  Recently completed Frontend Development at Noroff. I&apos;ve worked on real-world projects 
-                  for streamers and communities, and continue building with new technologies.
-                </p>
-              </div>
-
-              <div className="mt-10 flex flex-wrap gap-4">
-                <motion.a
-                  href={contactInfo.social.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 glass-card hover-lift hover-glow rounded"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <span className="text-gray-300 font-medium">GitHub</span>
-                </motion.a>
-                <motion.a
-                  href={contactInfo.social.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 glass-card hover-lift hover-glow rounded"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <span className="text-gray-300 font-medium">LinkedIn</span>
-                </motion.a>
-                <motion.a
-                  href={contactInfo.social.X}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 glass-card hover-lift hover-glow rounded"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <span className="text-gray-300 font-medium">X (Twitter)</span>
-                </motion.a>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Work Section */}
-      <section id="work" className="section-padding relative bg-[#1a1a1a]">
-        <div className="absolute inset-0 bg-dots opacity-20" />
-        
-        <div className="container-fluid relative z-10">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+      {/* Hero */}
+      <HeroAtmosphere>
+        <div className="max-w-3xl relative">
+          <motion.p
+            className="eyebrow mb-5"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, ease: softEase }}
           >
-            <span className="badge mb-6">Portfolio</span>
-            <h2 className="heading-large mb-6">
-              <span className="text-[#8b6f47]">Featured Projects</span>
-            </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
-              A collection of recent projects showcasing expertise in modern web development,
-              from e-commerce platforms to booking systems
+            Toby Haywood
+          </motion.p>
+
+          <motion.h1
+            className="heading-hero text-[var(--color-text-primary)] text-balance mb-6"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.08, ease: softEase }}
+          >
+            Designing and building{' '}
+            <span className="italic text-[var(--color-primary)]">clean digital experiences</span>{' '}
+            for the web.
+          </motion.h1>
+
+          <motion.div
+            className="space-y-4 text-lg text-[var(--color-text-secondary)] max-w-2xl leading-relaxed mb-8"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.16, ease: softEase }}
+          >
+            <p>
+              I’m a frontend developer based in Norway with a strong interest in thoughtful
+              design, polished interfaces, and modern websites that feel clear and well put
+              together. This site is a selection of my work, ideas, and freelance projects,
+              with a focus on simplicity, usability, and visual detail.
+            </p>
+            <p>
+              Alongside personal work and experiments, I also take on selected freelance
+              projects for people and small businesses who want a cleaner, more modern
+              presence online.
             </p>
           </motion.div>
 
-          <div className="max-w-6xl mx-auto space-y-8">
-            {[...projectsArray].reverse().map((project, index) => (
-              <motion.div
-                key={project.slug}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Link href={`/projects/${project.slug}`}>
-                  <div className="card-bento group cursor-pointer">
-                    <div className="flex flex-col md:flex-row gap-8">
-                      {/* Project Image */}
-                      <div className="relative w-full md:w-96 h-64 md:h-auto md:min-h-[280px] rounded overflow-hidden flex-shrink-0 image-zoom-container">
-                        {project.image ? (
-                          <>
-                            <Image
-                              src={project.image}
-                              alt={project.imageCaption}
-                              fill
-                              className="object-cover object-top image-zoom"
-                              sizes="(max-width: 768px) 100vw, 400px"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                          </>
-                        ) : (
-                          <div className={`w-full h-full bg-gradient-to-br ${project.gradient} flex items-center justify-center`}>
-                            <div className="text-center">
-                              <div className="text-5xl mb-3">📚</div>
-                              <div className="text-white font-semibold">In Development</div>
-                            </div>
-                          </div>
-                        )}
-                      </div>
+          <motion.div
+            className="flex flex-col sm:flex-row gap-3 mb-5"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.26, ease: softEase }}
+          >
+            <a href="#work" className="btn-primary">
+              View work
+            </a>
+            <a href={getContactHref()} className="btn-secondary">
+              Let’s talk
+            </a>
+          </motion.div>
 
-                      {/* Project Info */}
-                      <div className="flex-1 flex flex-col justify-center py-2">
-                        <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-[#a88d65] transition-all">
-                          {project.title}
-                        </h3>
-                        
-                        <p className="text-gray-400 text-lg mb-6 leading-relaxed line-clamp-2">
-                          {project.shortDescription}
-                        </p>
-                        
-                        <div className="flex flex-wrap gap-3 mb-6">
-                          {project.tech.slice(0, 5).map((tech) => (
-                            <span
-                              key={tech}
-                              className="px-3 py-1.5 bg-[#8b6f47]/10 text-[#a88d65] rounded text-sm font-medium border border-[#8b6f47]/20"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                          {project.tech.length > 5 && (
-                            <span className="px-3 py-1.5 bg-[#2a2a2a] text-gray-400 rounded text-sm font-medium">
-                              +{project.tech.length - 5} more
-                            </span>
-                          )}
-                        </div>
-                        
-                        <div className="flex items-center text-[#8b6f47] font-semibold group-hover:text-[#a88d65] transition-all">
-                          <span className="mr-2">View Project Details</span>
-                          <motion.span
-                            className="inline-block"
-                            animate={{ x: [0, 5, 0] }}
-                            transition={{ duration: 1.5, repeat: Infinity }}
-                          >
-                            →
-                          </motion.span>
-                        </div>
-                      </div>
+          <motion.p
+            className="text-sm text-[var(--color-text-muted)]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.45, delay: 0.34 }}
+          >
+            Available for selected freelance projects.
+          </motion.p>
+        </div>
+      </HeroAtmosphere>
+
+      {/* Selected work */}
+      <section id="work" className="section-padding">
+        <div className="container-fluid">
+          <motion.div className="max-w-2xl mb-14" {...fadeUp}>
+            <div className="accent-rule mb-5" aria-hidden />
+            <h2 className="heading-section mb-5">Selected work</h2>
+            <p className="text-[var(--color-text-secondary)] leading-relaxed text-lg">
+              A curated selection of projects that reflect how I think about design, structure,
+              interaction, and front-end execution. Some are closer to client-style website work,
+              while others are more exploratory. All of them show the kind of digital
+              experiences I enjoy building.
+            </p>
+          </motion.div>
+
+          {featured && (
+            <motion.article className="mb-12 md:mb-16" {...fadeUp}>
+              <Link
+                href={`/projects/${featured.slug}`}
+                className="project-card project-card-featured group"
+              >
+                <div className="grid md:grid-cols-12 gap-6 md:gap-8 items-stretch">
+                  <div className="md:col-span-7 relative aspect-[16/10] md:aspect-auto md:min-h-[320px] rounded-xl overflow-hidden bg-[var(--color-bg-muted)] image-zoom-container">
+                    <Image
+                      src={featured.image}
+                      alt={featured.imageCaption}
+                      fill
+                      className="object-cover object-top image-zoom"
+                      sizes="(max-width: 768px) 100vw, 640px"
+                      priority
+                    />
+                  </div>
+                  <div className="md:col-span-5 flex flex-col justify-center py-2 md:py-4 md:pr-2">
+                    <div className="flex flex-wrap items-center gap-2.5 mb-3">
+                      <ProjectFlareBadge flare={featured.flare} />
+                      <p className="project-meta">{featured.businessType}</p>
                     </div>
+                    <h3 className="heading-section text-[1.75rem] md:text-[2rem] mb-4 group-hover:text-[var(--color-primary)] transition-colors">
+                      {featured.title}
+                    </h3>
+                    <p className="text-[var(--color-text-primary)] leading-relaxed mb-3">
+                      {featured.shortDescription}
+                    </p>
+                    <p className="text-[var(--color-text-secondary)] leading-relaxed mb-6">
+                      {featured.cardNote}
+                    </p>
+                    <span className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)]">
+                      View project
+                      <span aria-hidden className="transition-transform group-hover:translate-x-1">
+                        →
+                      </span>
+                    </span>
                   </div>
+                </div>
+              </Link>
+            </motion.article>
+          )}
+
+          <div className="grid md:grid-cols-2 gap-8 md:gap-10">
+            {restProjects.map((project, index) => (
+              <motion.article key={project.slug} {...fadeUp} transition={{ duration: 0.55, delay: index * 0.04, ease: softEase }}>
+                <Link href={`/projects/${project.slug}`} className="project-card group block">
+                  <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-[var(--color-surface)] border border-[var(--color-border-subtle)] image-zoom-container mb-5">
+                    <Image
+                      src={project.image}
+                      alt={project.imageCaption}
+                      fill
+                      className="object-cover object-top image-zoom"
+                      sizes="(max-width: 768px) 100vw, 520px"
+                    />
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2.5 mb-2">
+                    <ProjectFlareBadge flare={project.flare} />
+                    <p className="project-meta">{project.businessType}</p>
+                  </div>
+                  <h3 className="heading-card mb-2 group-hover:text-[var(--color-primary)] transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-[var(--color-text-primary)] leading-relaxed mb-2 text-[0.98rem]">
+                    {project.shortDescription}
+                  </p>
+                  <p className="text-[var(--color-text-secondary)] leading-relaxed mb-4 text-sm">
+                    {project.cardNote}
+                  </p>
+                  <span className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)]">
+                    View project
+                    <span aria-hidden className="transition-transform group-hover:translate-x-1">
+                      →
+                    </span>
+                  </span>
                 </Link>
-              </motion.div>
+              </motion.article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Skills Section */}
-      <section id="skills" className="section-padding relative">
-        <div className="absolute inset-0 bg-grid opacity-20" />
-        
-        <div className="container-fluid relative z-10">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <span className="badge mb-6">Expertise</span>
-            <h2 className="heading-large">
-              <span className="text-[#8b6f47]">Tech Stack</span>
-            </h2>
+      {/* About */}
+      <section id="about" className="section-padding surface-warm border-y border-[var(--color-border-subtle)]">
+        <div className="container-fluid">
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+            <motion.div className="lg:col-span-7 max-w-xl" {...fadeUp}>
+              <div className="accent-rule mb-5" aria-hidden />
+              <h2 className="heading-section mb-8">About</h2>
+              <div className="space-y-5 text-[var(--color-text-secondary)] leading-relaxed text-lg">
+                <p>
+                  I’m Toby, a developer based in Norway with a background that leans heavily toward
+                  front-end work, design-minded thinking, and building things for the web that feel
+                  calm, modern, and intentional. I’m most interested in the point where structure,
+                  visuals, and implementation meet, where a good idea starts to feel polished and
+                  complete.
+                </p>
+                <p>
+                  A lot of the work I enjoy sits somewhere between portfolio piece, product concept,
+                  and real-world website. I like projects that have a strong visual direction, clear
+                  purpose, and enough room to think carefully about the experience rather than just
+                  assembling parts.
+                </p>
+                <p>
+                  This portfolio is both a place to document that work and a space that makes it easy
+                  to reach out if you’d like to work together.
+                </p>
+              </div>
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a
+                  href={SOCIAL_LINKS.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary !py-2.5 !px-4 !text-sm"
+                >
+                  LinkedIn
+                </a>
+                <a
+                  href={SOCIAL_LINKS.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary !py-2.5 !px-4 !text-sm"
+                >
+                  GitHub
+                </a>
+              </div>
+            </motion.div>
+
+            <motion.aside
+              className="lg:col-span-5 lg:pt-10"
+              {...fadeUp}
+              transition={{ duration: 0.6, delay: 0.08, ease: softEase }}
+            >
+              <div className="relative max-w-sm ml-auto">
+                <div className="relative aspect-[4/5] rounded-2xl overflow-hidden border border-[var(--color-border-subtle)] shadow-[var(--shadow-soft)] bg-[var(--color-bg)]">
+                  <Image
+                    src="/headshot.png"
+                    alt="Toby Haywood"
+                    fill
+                    className="object-cover object-[center_20%]"
+                    sizes="(max-width: 1024px) 100vw, 360px"
+                    priority
+                  />
+                </div>
+                <p className="mt-4 text-sm text-[var(--color-text-muted)] italic font-[family-name:var(--font-heading)] text-right">
+                  Based in Norway · open to selected freelance work
+                </p>
+              </div>
+            </motion.aside>
+          </div>
+        </div>
+      </section>
+
+      {/* What I do */}
+      <section id="what-i-do" className="section-padding">
+        <div className="container-fluid">
+          <motion.div className="max-w-2xl mb-12" {...fadeUp}>
+            <h2 className="heading-section mb-4">What I do</h2>
+            <p className="text-[var(--color-text-secondary)] text-lg leading-relaxed">
+              Most of my work falls somewhere across these three areas:
+            </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-5xl mx-auto">
-            {skills.map((skill, index) => (
-              <motion.div
-                key={skill.name}
-                className="card-spotlight"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <div className="relative">
-                  <div className="text-sm text-[#8b6f47] font-medium mb-2 uppercase tracking-wider">
-                    {skill.category}
-                  </div>
-                  <h3 className="text-xl font-bold text-white">
-                    {skill.name}
+          <div className="grid md:grid-cols-3 gap-10 md:gap-12 max-w-5xl">
+            {whatIDo.map((item) => (
+              <motion.div key={item.title} {...fadeUp}>
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="copper-dot" aria-hidden />
+                  <h3 className="font-[family-name:var(--font-heading)] text-xl font-medium">
+                    {item.title}
                   </h3>
-                  <div className="w-12 h-0.5 bg-[#8b6f47] mt-3" />
                 </div>
+                <p className="text-[var(--color-text-secondary)] leading-relaxed">
+                  {item.body}
+                </p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Contact Section - CTA */}
-      <section id="contact" className="section-padding relative bg-[#1a1a1a]">
-        <div className="container-fluid relative z-10">
-          <div className="max-w-4xl mx-auto">
-            <motion.div
-              className="text-center"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <span className="badge mb-6">Get in Touch</span>
-              <h2 className="heading-large mb-8">
-                Let&apos;s Build Something <span className="text-[#8b6f47]">Amazing</span>
-              </h2>
-              <p className="text-gray-400 text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
-                Have a project in mind? Let&apos;s collaborate and bring your ideas to life
-                with modern technology and thoughtful design.
+      {/* How I work */}
+      <section className="section-padding-tight border-t border-[var(--color-border-subtle)]">
+        <div className="container-fluid">
+          <motion.div className="max-w-xl md:max-w-2xl md:ml-[8%]" {...fadeUp}>
+            <h2 className="heading-section mb-8">How I work</h2>
+            <div className="space-y-5 text-[var(--color-text-secondary)] leading-relaxed text-lg">
+              <p>
+                I tend to start with structure first. Once the foundations are clear (what the
+                thing is, who it’s for, and what needs to be shown), the visual direction usually
+                becomes much easier to shape in a way that feels natural.
               </p>
+              <p>
+                From there, I like refining the details that make a website or interface feel more
+                considered: spacing, rhythm, typography, transitions, hierarchy, and how everything
+                flows from one section to the next. In most cases, I’m less interested in adding
+                more and more visual noise, and more interested in making the right things feel
+                right.
+              </p>
+              <p>
+                That usually leads to work that feels clean, restrained, and easy to move through.
+                That’s also the kind of design I’m most drawn to personally.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
-              <motion.a
-                href={`mailto:${contactInfo.email}`}
-                className="btn-neon inline-block text-lg mb-12"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="relative z-10">{contactInfo.email}</span>
-              </motion.a>
+      {/* Freelance */}
+      <section id="freelance" className="section-padding">
+        <div className="container-fluid">
+          <motion.div className="max-w-2xl" {...fadeUp}>
+            <div className="accent-rule mb-5" aria-hidden />
+            <h2 className="heading-section mb-8">Freelance</h2>
+            <div className="space-y-5 text-[var(--color-text-secondary)] leading-relaxed text-lg">
+              <p>
+                I’m open to selected freelance projects, especially website redesigns, modern
+                front-end builds, and smaller projects where a cleaner visual direction or more
+                polished implementation would make a noticeable difference.
+              </p>
+              <p>
+                I’m probably the best fit for work that values clarity, detail, and a more personal
+                collaboration rather than a big agency-style process.
+              </p>
+            </div>
+            <a href={getContactHref()} className="btn-primary mt-8 inline-flex">
+              Start a conversation
+            </a>
+          </motion.div>
+        </div>
+      </section>
 
-              <div className="flex justify-center gap-6">
-                <motion.a
-                  href={contactInfo.social.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-14 h-14 glass-card rounded-full flex items-center justify-center hover-glow group"
-                  whileHover={{ y: -4, scale: 1.1 }}
-                  title="GitHub"
+      {/* Notes */}
+      <section className="section-padding-tight border-t border-[var(--color-border-subtle)]">
+        <div className="container-fluid">
+          <motion.div className="max-w-2xl" {...fadeUp}>
+            <h2 className="heading-section mb-10">Notes</h2>
+            <ul className="space-y-6">
+              {notes.map((note) => (
+                <li
+                  key={note}
+                  className="text-[var(--color-text-secondary)] leading-relaxed text-lg pl-5 border-l-2 border-[var(--color-accent)]/50"
                 >
-                  <svg className="w-6 h-6 text-[#8b6f47] group-hover:text-[#a88d65] transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                    <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
-                  </svg>
-                </motion.a>
-                
-                <motion.a
-                  href={contactInfo.social.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-14 h-14 glass-card rounded-full flex items-center justify-center hover-glow group"
-                  whileHover={{ y: -4, scale: 1.1 }}
-                  title="LinkedIn"
-                >
-                  <svg className="w-6 h-6 text-[#8b6f47] group-hover:text-[#a88d65] transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                  </svg>
-                </motion.a>
-                
-                <motion.a
-                  href={contactInfo.social.X}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-14 h-14 glass-card rounded-full flex items-center justify-center hover-glow group"
-                  whileHover={{ y: -4, scale: 1.1 }}
-                  title="X (Twitter)"
-                >
-                  <svg className="w-5 h-5 text-[#8b6f47] group-hover:text-[#a88d65] transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                  </svg>
-                </motion.a>
+                  {note}
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" className="section-padding relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden>
+          <div className="absolute inset-0 bg-[var(--color-surface)]" />
+          <ContourBackdrop intensity="soft" />
+        </div>
+
+        <div className="container-fluid relative z-10">
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+            <motion.div className="lg:col-span-5 max-w-lg" {...fadeUp}>
+              <h2 className="heading-section mb-8">Let’s talk</h2>
+              <div className="space-y-5 text-[var(--color-text-secondary)] leading-relaxed text-lg">
+                <p>
+                  If you’re looking for someone to build or refine a website, collaborate on a
+                  front-end project, or help shape a cleaner visual direction for something you’re
+                  working on, feel free to get in touch.
+                </p>
+                <p>
+                  Whether it’s a freelance project, an idea in progress, or just a conversation
+                  around design and the web, I’m always open to hearing what you’re building.
+                </p>
               </div>
+            </motion.div>
+
+            <motion.div
+              className="lg:col-span-7"
+              {...fadeUp}
+              transition={{ duration: 0.6, delay: 0.06, ease: softEase }}
+            >
+              <ContactForm />
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-16 border-t border-[#8b6f47]/20">
-        <div className="container-fluid">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="text-gray-500">
-              © 2025 Toby Haywood. Crafted with Next.js & Framer Motion.
-            </p>
-            <div className="flex items-center gap-3">
-              <span className="w-2 h-2 bg-[#8b6f47] rounded-full animate-pulse" />
-              <span className="text-gray-500">Available for work</span>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   )
 }

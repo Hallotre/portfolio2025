@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" fill="none">
+  <!-- Seamless tile: each path starts/ends at the same Y so repeats connect -->
+  <g stroke="#0E6B68" stroke-width="1.2" stroke-linecap="butt" stroke-linejoin="round">
+    <path d="M0 20C67 -10 133 -10 200 20C267 50 333 50 400 20" />
+    <path d="M0 60C67 90 133 90 200 60C267 30 333 30 400 60" />
+    <path d="M0 100C67 70 133 70 200 100C267 130 333 130 400 100" />
+    <path d="M0 140C67 170 133 170 200 140C267 110 333 110 400 140" />
+    <path d="M0 180C67 150 133 150 200 180C267 210 333 210 400 180" />
+    <path d="M0 220C67 250 133 250 200 220C267 190 333 190 400 220" />
+    <path d="M0 260C67 230 133 230 200 260C267 290 333 290 400 260" />
+    <path d="M0 300C67 330 133 330 200 300C267 270 333 270 400 300" />
+    <path d="M0 340C67 310 133 310 200 340C267 370 333 370 400 340" />
+    <path d="M0 380C67 410 133 410 200 380C267 350 333 350 400 380" />
+  </g>
+</svg>
