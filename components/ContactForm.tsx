@@ -9,35 +9,25 @@ import {
   getTalkMailto,
   getWeb3FormsAccessKey,
 } from '@/lib/contact'
+import {
+  CONTACT_FIELD_LIMITS,
+  CONTACT_PROJECT_TYPES,
+  type ContactFieldErrors,
+  type ContactFormMode,
+  buildInquiryMessage,
+  sanitizeContactInput,
+  validateContactInput,
+} from '@/lib/contact-form'
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error'
-type FormMode = 'simple' | 'inquiry'
 
-const PROJECT_TYPES = [
-  { value: '', label: 'Select one (optional)' },
-  { value: 'New website', label: 'New website' },
-  { value: 'Website redesign', label: 'Website redesign' },
-  { value: 'Front-end build', label: 'Front-end build' },
-  { value: 'Something else', label: 'Something else' },
-] as const
-
-function buildInquiryMessage(input: {
-  message: string
-  projectType: string
-  website: string
-}): string {
-  return [
-    input.message.trim(),
-    '',
-    '--- Inquiry details ---',
-    `Project type: ${input.projectType || 'Not specified'}`,
-    `Current website: ${input.website.trim() || 'Not specified'}`,
-  ].join('\n')
+function fieldClass(hasError: boolean) {
+  return hasError ? 'contact-input contact-input-error' : 'contact-input'
 }
 
 export default function ContactForm() {
   const captchaRef = useRef<HCaptcha>(null)
-  const [mode, setMode] = useState<FormMode>('simple')
+  const [mode, setMode] = useState<ContactFormMode>('simple')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [projectType, setProjectType] = useState('')
@@ -47,6 +37,7 @@ export default function ContactForm() {
   const [captchaToken, setCaptchaToken] = useState('')
   const [status, setStatus] = useState<FormStatus>('idle')
   const [errorMessage, setErrorMessage] = useState('')
+  const [fieldErrors, setFieldErrors] = useState<ContactFieldErrors>({})
 
   const accessKey = getWeb3FormsAccessKey()
   const canSubmit =
@@ -67,12 +58,23 @@ export default function ContactForm() {
     setProjectType('')
     setWebsite('')
     setMessage('')
+    setFieldErrors({})
   }
 
-  function switchMode(nextMode: FormMode) {
+  function clearFieldError(field: keyof ContactFieldErrors) {
+    setFieldErrors((current) => {
+      if (!current[field]) return current
+      const next = { ...current }
+      delete next[field]
+      return next
+    })
+  }
+
+  function switchMode(nextMode: ContactFormMode) {
     setMode(nextMode)
     setStatus('idle')
     setErrorMessage('')
+    setFieldErrors({})
     resetCaptcha()
   }
 
@@ -80,6 +82,30 @@ export default function ContactForm() {
     event.preventDefault()
 
     if (botcheck) {
+      return
+    }
+
+    const sanitized = sanitizeContactInput({
+      name,
+      email,
+      message,
+      website,
+      projectType,
+    })
+
+    // Reflect sanitized single-line values back into the UI
+    setName(sanitized.name)
+    setEmail(sanitized.email)
+    setMessage(sanitized.message)
+    setWebsite(sanitized.website)
+    setProjectType(sanitized.projectType)
+
+    const errors = validateContactInput(sanitized, mode)
+    setFieldErrors(errors)
+
+    if (Object.keys(errors).length > 0) {
+      setStatus('error')
+      setErrorMessage('Please fix the highlighted fields and try again.')
       return
     }
 
@@ -99,8 +125,19 @@ export default function ContactForm() {
     setErrorMessage('')
 
     const composedMessage = isInquiry
-      ? buildInquiryMessage({ message, projectType, website })
-      : message.trim()
+      ? buildInquiryMessage({
+          message: sanitized.message,
+          projectType: sanitized.projectType,
+          website: sanitized.website,
+        })
+      : sanitized.message
+
+    // Subject is built only from whitelisted project types — never raw user newlines
+    const subject = isInquiry
+      ? sanitized.projectType
+        ? `Portfolio inquiry: ${sanitized.projectType}`
+        : 'Portfolio inquiry'
+      : 'Portfolio contact'
 
     try {
       const response = await fetch(WEB3FORMS_ENDPOINT, {
@@ -111,21 +148,17 @@ export default function ContactForm() {
         },
         body: JSON.stringify({
           access_key: accessKey,
-          name,
-          email,
+          name: sanitized.name,
+          email: sanitized.email,
           message: composedMessage,
           form_type: isInquiry ? 'Project inquiry' : 'Simple contact',
           ...(isInquiry
             ? {
-                project_type: projectType || 'Not specified',
-                current_website: website.trim() || 'Not specified',
+                project_type: sanitized.projectType || 'Not specified',
+                current_website: sanitized.website || 'Not specified',
               }
             : {}),
-          subject: isInquiry
-            ? projectType
-              ? `Portfolio inquiry: ${projectType}`
-              : 'Portfolio inquiry'
-            : 'Portfolio contact',
+          subject,
           from_name: 'Toby Haywood Portfolio',
           'h-captcha-response': captchaToken,
           botcheck,
@@ -229,11 +262,22 @@ export default function ContactForm() {
                 type="text"
                 required
                 autoComplete="name"
+                maxLength={CONTACT_FIELD_LIMITS.name.max}
                 value={name}
-                onChange={(event) => setName(event.target.value)}
-                className="contact-input"
+                onChange={(event) => {
+                  setName(event.target.value)
+                  clearFieldError('name')
+                }}
+                className={fieldClass(Boolean(fieldErrors.name))}
                 placeholder="Your name"
+                aria-invalid={Boolean(fieldErrors.name)}
+                aria-describedby={fieldErrors.name ? 'contact-name-error' : undefined}
               />
+              {fieldErrors.name && (
+                <p id="contact-name-error" className="contact-field-error" role="alert">
+                  {fieldErrors.name}
+                </p>
+              )}
             </div>
 
             <div>
@@ -246,11 +290,23 @@ export default function ContactForm() {
                 type="email"
                 required
                 autoComplete="email"
+                inputMode="email"
+                maxLength={CONTACT_FIELD_LIMITS.email.max}
                 value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                className="contact-input"
+                onChange={(event) => {
+                  setEmail(event.target.value)
+                  clearFieldError('email')
+                }}
+                className={fieldClass(Boolean(fieldErrors.email))}
                 placeholder="you@example.com"
+                aria-invalid={Boolean(fieldErrors.email)}
+                aria-describedby={fieldErrors.email ? 'contact-email-error' : undefined}
               />
+              {fieldErrors.email && (
+                <p id="contact-email-error" className="contact-field-error" role="alert">
+                  {fieldErrors.email}
+                </p>
+              )}
             </div>
           </div>
 
@@ -264,15 +320,27 @@ export default function ContactForm() {
                   id="contact-project-type"
                   name="project_type"
                   value={projectType}
-                  onChange={(event) => setProjectType(event.target.value)}
-                  className="contact-input contact-select"
+                  onChange={(event) => {
+                    setProjectType(event.target.value)
+                    clearFieldError('projectType')
+                  }}
+                  className={`${fieldClass(Boolean(fieldErrors.projectType))} contact-select`}
+                  aria-invalid={Boolean(fieldErrors.projectType)}
+                  aria-describedby={
+                    fieldErrors.projectType ? 'contact-project-type-error' : undefined
+                  }
                 >
-                  {PROJECT_TYPES.map((option) => (
+                  {CONTACT_PROJECT_TYPES.map((option) => (
                     <option key={option.label} value={option.value}>
                       {option.label}
                     </option>
                   ))}
                 </select>
+                {fieldErrors.projectType && (
+                  <p id="contact-project-type-error" className="contact-field-error" role="alert">
+                    {fieldErrors.projectType}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -285,11 +353,22 @@ export default function ContactForm() {
                   type="text"
                   inputMode="url"
                   autoComplete="url"
+                  maxLength={CONTACT_FIELD_LIMITS.website.max}
                   value={website}
-                  onChange={(event) => setWebsite(event.target.value)}
-                  className="contact-input"
+                  onChange={(event) => {
+                    setWebsite(event.target.value)
+                    clearFieldError('website')
+                  }}
+                  className={fieldClass(Boolean(fieldErrors.website))}
                   placeholder="yoursite.com (if you have one)"
+                  aria-invalid={Boolean(fieldErrors.website)}
+                  aria-describedby={fieldErrors.website ? 'contact-website-error' : undefined}
                 />
+                {fieldErrors.website && (
+                  <p id="contact-website-error" className="contact-field-error" role="alert">
+                    {fieldErrors.website}
+                  </p>
+                )}
               </div>
             </>
           )}
@@ -303,15 +382,26 @@ export default function ContactForm() {
               name="message"
               required
               rows={isInquiry ? 5 : 4}
+              maxLength={CONTACT_FIELD_LIMITS.message.max}
               value={message}
-              onChange={(event) => setMessage(event.target.value)}
-              className="contact-input contact-textarea"
+              onChange={(event) => {
+                setMessage(event.target.value)
+                clearFieldError('message')
+              }}
+              className={`${fieldClass(Boolean(fieldErrors.message))} contact-textarea`}
               placeholder={
                 isInquiry
                   ? 'What are you hoping to improve or build? Any goals, audience, or must-haves are helpful.'
                   : 'What’s on your mind?'
               }
+              aria-invalid={Boolean(fieldErrors.message)}
+              aria-describedby={fieldErrors.message ? 'contact-message-error' : undefined}
             />
+            {fieldErrors.message && (
+              <p id="contact-message-error" className="contact-field-error" role="alert">
+                {fieldErrors.message}
+              </p>
+            )}
           </div>
 
           <div className="pt-1">
