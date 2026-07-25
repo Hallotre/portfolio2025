@@ -140,29 +140,26 @@ export default function ContactForm() {
       : 'Portfolio contact'
 
     try {
+      // Web3Forms React docs use FormData (not JSON)
+      const formData = new FormData()
+      formData.append('access_key', accessKey)
+      formData.append('name', sanitized.name)
+      formData.append('email', sanitized.email)
+      formData.append('message', composedMessage)
+      formData.append('subject', subject)
+      formData.append('from_name', 'Toby Haywood Portfolio')
+      formData.append('form_type', isInquiry ? 'Project inquiry' : 'Simple contact')
+      formData.append('h-captcha-response', captchaToken)
+      formData.append('botcheck', botcheck)
+
+      if (isInquiry) {
+        formData.append('project_type', sanitized.projectType || 'Not specified')
+        formData.append('current_website', sanitized.website || 'Not specified')
+      }
+
       const response = await fetch(WEB3FORMS_ENDPOINT, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          access_key: accessKey,
-          name: sanitized.name,
-          email: sanitized.email,
-          message: composedMessage,
-          form_type: isInquiry ? 'Project inquiry' : 'Simple contact',
-          ...(isInquiry
-            ? {
-                project_type: sanitized.projectType || 'Not specified',
-                current_website: sanitized.website || 'Not specified',
-              }
-            : {}),
-          subject,
-          from_name: 'Toby Haywood Portfolio',
-          'h-captcha-response': captchaToken,
-          botcheck,
-        }),
+        body: formData,
       })
 
       const result = (await response.json()) as { success?: boolean; message?: string }
